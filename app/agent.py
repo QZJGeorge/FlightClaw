@@ -3,6 +3,7 @@
 import asyncio
 from datetime import date, timedelta
 from collections.abc import AsyncGenerator
+from typing import Optional
 
 from app.scraper import scrape_roundtrip
 
@@ -117,7 +118,7 @@ async def run_agent(
     yield {"type": "done", "trips": unique}
 
 
-def _parse_time(time_str: str) -> int | None:
+def _parse_time(time_str: str) -> Optional[int]:
     """Parse time string like '8:35 AM' into minutes since midnight."""
     if not time_str:
         return None
