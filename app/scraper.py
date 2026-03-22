@@ -4,14 +4,17 @@ from __future__ import annotations
 
 import asyncio
 from datetime import date as date_type
+from typing import Optional
 
 from playwright.async_api import async_playwright, Browser, Playwright
 
 from app.airports import WEEKDAYS
 from app.flight_search import google_flights_url
 
-_playwright: Playwright | None = None
-_browser: Browser | None = None
+
+
+_playwright: Optional[Playwright] = None
+_browser: Optional[Browser] = None
 _lock = asyncio.Lock()
 
 
@@ -43,7 +46,7 @@ async def scrape_roundtrip(
     destination: str,
     depart_date: str,
     return_date: str,
-    airlines: list[str] | None = None,
+    airlines: Optional[list[str]] = None,
 ) -> list[dict]:
     """Scrape Google Flights for round-trip results."""
     url = google_flights_url(origin, destination, depart_date, return_date,

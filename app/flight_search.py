@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from base64 import urlsafe_b64encode
 from urllib.parse import urlencode
+from typing import Optional
 
 
 def _pb_varint(value: int) -> bytes:
@@ -36,7 +37,7 @@ def _pb_flight_data(
     date: str,
     origin: str,
     destination: str,
-    airlines: list[str] | None = None,
+    airlines: Optional[list[str]] = None,
 ) -> bytes:
     data = b""
     data += _pb_field_string(2, date)
@@ -53,7 +54,7 @@ def google_flights_url(
     destination: str,
     depart_date: str,
     return_date: str,
-    airlines: list[str] | None = None,
+    airlines: Optional[list[str]] = None,
 ) -> str:
     """Build a Google Flights search URL with protobuf-encoded tfs parameter."""
     outbound = _pb_flight_data(depart_date, origin, destination, airlines)
