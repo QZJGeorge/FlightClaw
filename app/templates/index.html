@@ -291,9 +291,9 @@ function parseTime(t) {
 function isOvernight(trip) {
     for (const leg of [trip.outbound, trip.return]) {
         const dep = parseTime(leg.departure_time);
-        if (dep !== null && dep >= 21 * 60) return true;
+        if (dep !== null && (dep >= 21 * 60 || dep < 6 * 60)) return true;
         const arr = parseTime(leg.arrival_time);
-        if (arr !== null && arr < 6 * 60) return true;
+        if (arr !== null && (arr >= 21 * 60 || arr < 6 * 60)) return true;
     }
     return false;
 }
