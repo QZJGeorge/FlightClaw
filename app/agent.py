@@ -33,7 +33,7 @@ async def run_agent(
     date_pairs: list[tuple[str, str]] = []
     d = start
     while d <= end:
-        for stay in sorted(set([min_days, (min_days + max_days) // 2, max_days])):
+        for stay in range(min_days, max_days + 1):
             ret = d + timedelta(days=stay - 1)
             if ret <= end:
                 key = f"{d.isoformat()}|{ret.isoformat()}"
